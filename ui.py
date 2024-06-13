@@ -13,15 +13,22 @@ class ServerInterface(tk.Tk):
         self.users_tab = ttk.Frame(self.tabControl)
         self.groups_tab = ttk.Frame(self.tabControl)
         self.features_tab = ttk.Frame(self.tabControl)
-        
+        self.logs_tab = ttk.Frame(self.tabControl)
+        self.GPO_tab = ttk.Frame(self.tabControl)
+
         self.tabControl.add(self.users_tab, text='Users')
         self.tabControl.add(self.groups_tab, text='Groups')
         self.tabControl.add(self.features_tab, text='Features')
+        self.tabControl.add(self.logs_tab, text='Logs')
+        self.tabControl.add(self.GPO_tab, text='GPO')
         
         self.setup_users_tab()
         self.setup_groups_tab()
         self.setup_features_tab()
-    
+        self.setup_logs_tab()
+        self.setup_GPO_tab()
+
+
     def setup_users_tab(self):
         user_label = ttk.Label(self.users_tab, text="User Index:")
         user_label.pack(pady=10)
@@ -51,6 +58,28 @@ class ServerInterface(tk.Tk):
         features = ["Feature1", "Feature2", "Feature3"]
         for feature in features:
             feature_listbox.insert(tk.END, feature)
+
+    def setup_logs_tab(self):
+        log_label = ttk.Label(self.logs_tab, text="System Logs:")
+        log_label.pack(pady=10)
+        log_text = tk.Text(self.logs_tab, wrap='word', height=10)
+        log_text.pack(expand=True, fill="both")
+        # Dummy data for demonstration
+        logs = ["Log Entry 1: System started", "Log Entry 2: User logged in", "Log Entry 3: Error encountered"]
+        for log in logs:
+            log_text.insert(tk.END, log + '\n')
+
+    def setup_GPO_tab(self):
+        gpo_label = ttk.Label(self.GPO_tab, text="Group Policy Objects:")
+        gpo_label.pack(pady=10)
+        gpo_listbox = tk.Listbox(self.GPO_tab)
+        gpo_listbox.pack(expand=True, fill="both")
+        # Dummy data for demonstration
+        gpos = ["GPO1: Security Settings", "GPO2: Network Configuration", "GPO3: Software Deployment"]
+        for gpo in gpos:
+            gpo_listbox.insert(tk.END, gpo)
+
+
 
 if __name__ == "__main__":
     app = ServerInterface()

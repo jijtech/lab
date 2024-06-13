@@ -37,8 +37,8 @@ class ServerInterface(tk.Tk):
         self.setup_Edit_tab()
 
     def setup_welcome_tab(self):
-        welcome_label = ttk.Label(self.welcome_tab, text="Welcome to TheImperium Domain!")
-        welcome_label.pack(pady=20)
+        welcome_label = ttk.Label(self.welcome_tab, text="TheImperium by Jeppe, Ida & Emil")
+        welcome_label.pack(pady=10)
 
         # Execute and display system information
         system_info = subprocess.check_output('powershell "Get-WmiObject Win32_NTDomain"', shell=True).decode()
@@ -98,17 +98,20 @@ class ServerInterface(tk.Tk):
             gpo_listbox.insert(tk.END, gpo)
 
     def setup_Edit_tab(self):
-        edit_label = ttk.Label(self.Edit_tab, text="Edit Users:")
+        edit_label = ttk.Label(self.Edit_tab, text="Select what to edit below")
         edit_label.pack(pady=10)
-        # Lav funktion Knapper
+        # Function Buttons
         open_netplwiz_button = ttk.Button(self.Edit_tab, text="Manage User Accounts", command=self.open_netplwiz)
         open_netplwiz_button.pack(pady=10)
 
-        export_users_button = ttk.Button(self.Edit_tab, text="Export to CSV", command=self.export_users_to_csv)
+        export_users_button = ttk.Button(self.Edit_tab, text="Export User Spreadsheet", command=self.export_users_to_csv)
         export_users_button.pack(pady=10)
 
-        network_settings_button = ttk.Button(self.Edit_tab, text="Network Settings", command=self.open_network_settings)
+        network_settings_button = ttk.Button(self.Edit_tab, text="Network Connections", command=self.open_network_settings)
         network_settings_button.pack(pady=10)
+
+        execute_backup_button = ttk.Button(self.Edit_tab, text="Execute Backup", command=self.execute_backup)
+        execute_backup_button.pack(pady=10)
 
         # Ensure the Edit_tab is properly initialized and packed to display content
         # self.Edit_tab.pack(expand=True, fill="both")
@@ -128,12 +131,16 @@ class ServerInterface(tk.Tk):
             for user in users:
                 writer.writerow([user])
 
-        # export brugere csv fil
+        # export users csv file
         # Placeholder for future implementation
         pass
 
     def open_network_settings(self):
         subprocess.Popen('ncpa.cpl', shell=True)
+
+    def execute_backup(self):
+        # Placeholder for backup script execution
+        pass
 
 if __name__ == "__main__":
     app = ServerInterface()

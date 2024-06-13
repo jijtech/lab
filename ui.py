@@ -1,5 +1,7 @@
+import os
 import tkinter as tk
 from tkinter import ttk
+import subprocess
 
 class ServerInterface(tk.Tk):
     def __init__(self):
@@ -28,34 +30,34 @@ class ServerInterface(tk.Tk):
         self.setup_logs_tab()
         self.setup_GPO_tab()
 
-
     def setup_users_tab(self):
         user_label = ttk.Label(self.users_tab, text="User Index:")
         user_label.pack(pady=10)
         user_listbox = tk.Listbox(self.users_tab)
         user_listbox.pack(expand=True, fill="both")
-        # Dummy data for demonstration
-        users = ["User1", "User2", "User3"]
+        # Fetching system users
+        users = subprocess.check_output('net user', shell=True).decode().split('\n')[4:-2]
         for user in users:
-            user_listbox.insert(tk.END, user)
-    
+            user_listbox.insert(tk.END, user.strip())
+
     def setup_groups_tab(self):
         group_label = ttk.Label(self.groups_tab, text="Group Index:")
         group_label.pack(pady=10)
         group_listbox = tk.Listbox(self.groups_tab)
         group_listbox.pack(expand=True, fill="both")
-        # Dummy data for demonstration
-        groups = ["Group1", "Group2", "Group3"]
+        # Fetching system groups
+        groups = subprocess.check_output('net localgroup', shell=True).decode().split('\n')[4:-2]
         for group in groups:
-            group_listbox.insert(tk.END, group)
-    
+            group_listbox.insert(tk.END, group.strip())
+
     def setup_features_tab(self):
         feature_label = ttk.Label(self.features_tab, text="Server Features:")
         feature_label.pack(pady=10)
         feature_listbox = tk.Listbox(self.features_tab)
         feature_listbox.pack(expand=True, fill="both")
-        # Dummy data for demonstration
-        features = ["Feature1", "Feature2", "Feature3"]
+        # Fetching system features
+        features = subprocess.check_output('systeminfo', shell=True).decode().split('\n')
+        features = [f.strip() for f in features if "feature" in f.lower()]
         for feature in features:
             feature_listbox.insert(tk.END, feature)
 
@@ -64,8 +66,8 @@ class ServerInterface(tk.Tk):
         log_label.pack(pady=10)
         log_text = tk.Text(self.logs_tab, wrap='word', height=10)
         log_text.pack(expand=True, fill="both")
-        # Dummy data for demonstration
-        logs = ["Log Entry 1: System started", "Log Entry 2: User logged in", "Log Entry 3: Error encountered"]
+        # Fetching system logs
+        logs = subprocess.check_output('wevtutil qe System "/q:*[System [(Level=1 or Level=2)]]" /c:10 /f:text', shell=True).decode().split('\n')
         for log in logs:
             log_text.insert(tk.END, log + '\n')
 
@@ -74,16 +76,13 @@ class ServerInterface(tk.Tk):
         gpo_label.pack(pady=10)
         gpo_listbox = tk.Listbox(self.GPO_tab)
         gpo_listbox.pack(expand=True, fill="both")
-        # Dummy data for demonstration
-        gpos = ["GPO1: Security Settings", "GPO2: Network Configuration", "GPO3: Software Deployment"]
+        # Fetching GPOs
+        gpos = subprocess.check_output('gpresult /R', shell=True).decode().split('\n')
+        gpos = [g.strip() for g in gpos if "GPO" in g]
         for gpo in gpos:
             gpo_listbox.insert(tk.END, gpo)
-
-
 
 if __name__ == "__main__":
     app = ServerInterface()
     app.mainloop()
-
-
 

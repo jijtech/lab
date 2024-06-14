@@ -1,0 +1,18 @@
+GPO S
+OpSec GPO
+installér libreoffice på klienter
+
+
+
+
+**OU
+**USERS
+
+GRUPPER:
+DIREKTØR
+SALG
+ADM
+PROD
+INDKØB
+TRANSPORT
+IT

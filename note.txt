@@ -1,0 +1,40 @@
+
+
+B:\
+└───backup
+
+D:\
+├───Medarbejdere
+└───Shares
+    ├───Administrator
+    ├───Bene
+    ├───Chani
+    ├───Dmitri
+    ├───Doctor
+    ├───Emperor
+    ├───Guest
+    ├───ida
+    ├───Jamis
+    ├───Jeppe
+    ├───Jessica
+    ├───Leto Atreides
+    ├───milo
+    ├───Mother
+    ├───Paul
+    ├───Piter
+    ├───Rabban
+    ├───Server-share
+    │   ├───Administrationsmappe
+    │   ├───faellesmappe
+    │   ├───Firmamappe
+    │   ├───Gruppemappe
+    │   ├───Indkøbsmappe
+    │   ├───Lagermappe
+    │   ├───Produktionsmappe
+    │   ├───Regnskabsmappe
+    │   ├───Salgsmappe
+    │   ├───Transportmappe
+    │   ├───Wallpaper
+    │   └───Website
+    ├───Thufir
+    └───Vladimir
